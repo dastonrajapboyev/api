@@ -22,7 +22,7 @@ const token = localStorage.getItem("token");
 
 localStorage.setItem(
   "token",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA1MzE4MjMzNmU2Zjc0NTBmNDIwMiIsImlhdCI6MTcxOTA1NjM4NCwiZXhwIjoxNzE5MTQyNzg0fQ.q6nlbTQcGukRvCyM3py2Py4RUS2klKq9GnP1cW5Qj8c"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA1MzE4MjMzNmU2Zjc0NTBmNDIwMiIsImlhdCI6MTcxOTE1MjgzMywiZXhwIjoxNzE5MjM5MjMzfQ.xtvU1-82-KJxi-ZHkm762kAICyWrgfW-zKBbuD_RPRU"
 );
 
 const instance = axios.create({
