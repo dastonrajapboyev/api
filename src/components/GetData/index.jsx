@@ -27,9 +27,9 @@ function GetData() {
         const servicePromise = instance.get("/service");
 
         // ----------------------------------------------------
-        const homepagePromise = instance.get("statistic/");
-        const historyPatsientPromise = instance.get("/historypatsient");
-        const historyDoctorPromise = instance.get("/history");
+        // const homepagePromise = instance.get("statistic/");
+        // const historyPatsientPromise = instance.get("/historypatsient");
+        // const historyDoctorPromise = instance.get("/history");
         //-----------------------------------------------------------
 
         const [
@@ -40,9 +40,9 @@ function GetData() {
           roomResponse,
           treatmentResponse,
           serviceResponse,
-          homepageResponse,
-          historyPatsientResponse,
-          historyDoctorResponse,
+          // homepageResponse,
+          // historyPatsientResponse,
+          // historyDoctorResponse,
         ] = await Promise.all([
           doctorPromise,
           positionPromise,
@@ -51,9 +51,9 @@ function GetData() {
           roomPromise,
           treatmentPromise,
           servicePromise,
-          homepagePromise,
-          historyPatsientPromise,
-          historyDoctorPromise,
+          // homepagePromise,
+          // historyPatsientPromise,
+          // historyDoctorPromise,
         ]);
 
         console.log("Doctor Response Data:", doctorResponse.data);
@@ -62,16 +62,16 @@ function GetData() {
         console.log("Patsient Response Data:", patsientResponse.data);
         console.log("Room Response Data:", roomResponse.data);
         console.log("Treatment Response Data:", treatmentResponse.data);
-        console.log("Homepage Response Data:", homepageResponse.data);
+        // console.log("Homepage Response Data:", homepageResponse.data);
         console.log("Service Response Data:", serviceResponse.data);
-        console.log(
-          "History Patsient Response Data:",
-          historyPatsientResponse.data
-        );
-        console.log(
-          "History Doctor Response Data:",
-          historyDoctorResponse.data
-        );
+        // console.log(
+        //   "History Patsient Response Data:",
+        //   historyPatsientResponse.data
+        // );
+        // console.log(
+        //   "History Doctor Response Data:",
+        //   historyDoctorResponse.data
+        // );
 
         if (doctorResponse.data.length > 0) {
           setDoctorData(doctorResponse.data[0]);
@@ -91,18 +91,18 @@ function GetData() {
         if (treatmentResponse.data.length > 0) {
           setTreatmentData(treatmentResponse.data);
         }
-        if (homepageResponse.data.length > 0) {
-          setHomepageData(homepageResponse.data);
-        }
+        // if (homepageResponse.data.length > 0) {
+        //   setHomepageData(homepageResponse.data);
+        // }
         if (serviceResponse.data.length > 0) {
           setServiceData(serviceResponse.data);
         }
-        if (historyPatsientResponse.data.length > 0) {
-          setHistoryPatsientData(historyPatsientResponse.data);
-        }
-        if (historyDoctorResponse.data.length > 0) {
-          setHistoryDoctorData(historyDoctorResponse.data);
-        }
+        // if (historyPatsientResponse.data.length > 0) {
+        //   setHistoryPatsientData(historyPatsientResponse.data);
+        // }
+        // if (historyDoctorResponse.data.length > 0) {
+        //   setHistoryDoctorData(historyDoctorResponse.data);
+        // }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -206,7 +206,7 @@ function GetData() {
             </div>
           )}
 
-          {homepageData.length > 0 && (
+          {/* {homepageData.length > 0 && (
             <div>
               <h2>Homepage Data</h2>
               <ul>
@@ -217,7 +217,7 @@ function GetData() {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
 
           {serviceData.length > 0 && (
             <div>
@@ -231,7 +231,7 @@ function GetData() {
               </ul>
             </div>
           )}
-
+          {/* 
           {historyPatsientData.length > 0 && (
             <div>
               <h2>History Patsient Data</h2>
@@ -256,7 +256,7 @@ function GetData() {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
         </div>
       )}
     </div>
