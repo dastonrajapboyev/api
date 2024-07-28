@@ -20,13 +20,8 @@
 import axios from "axios";
 const token = localStorage.getItem("token");
 
-localStorage.setItem(
-  "token",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA1MzE4MjMzNmU2Zjc0NTBmNDIwMiIsImlhdCI6MTcxOTE1MjgzMywiZXhwIjoxNzE5MjM5MjMzfQ.xtvU1-82-KJxi-ZHkm762kAICyWrgfW-zKBbuD_RPRU"
-);
-
 const instance = axios.create({
-  baseURL: "http://95.130.227.52:3112",
+  baseURL: "http://195.158.9.124:4109",
 });
 
 if (token) {

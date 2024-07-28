@@ -17,7 +17,8 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://95.130.227.52:3112/auth/reg";
+    const url = "http://195.158.9.124:4109/auth/reg";
+
     try {
       const response = await axios.post(url, formData);
       console.log("Registration Response:", response);

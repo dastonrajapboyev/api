@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "https://hospital.bookblogs.uz/auth/login";
+    const url = "http://195.158.9.124:4109/auth/login";
     try {
       const response = await axios.post(url, formData);
       console.log("Login Response:", response);
