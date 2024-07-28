@@ -22,49 +22,47 @@ const UpdateUser = () => {
     try {
       const response = await axios.put(url, formData);
       console.log("Update Response:", response);
-      if (response.data && response.status === 200) {
-        setError("");
-        navigate("/profile"); // Adjust the route based on your app's navigation
-      } else {
-        setError("Update failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Update Error:", error.response || error.message);
-      setError("An error occurred during the update.");
+      navigate("/"); // Navigate back to the main page after successful update
+    } catch (err) {
+      console.error("Update Error:", err);
+      setError("Update failed. Please try again.");
     }
   };
 
   return (
     <div>
-      <h2>Update User</h2>
+      <h1>Update User</h1>
       <form onSubmit={handleUpdate}>
-        <input
-          type="text"
-          name="login"
-          value={formData.login}
-          onChange={handleChange}
-          placeholder="Login"
-          required
-        />
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Name"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
+        <div>
+          <label>Login:</label>
+          <input
+            type="text"
+            name="login"
+            value={formData.login}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Update</button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };
