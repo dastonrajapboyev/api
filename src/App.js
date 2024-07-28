@@ -1,23 +1,23 @@
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Login from "./components/Login";
-// import GetData from "./components/GetData";
-// import Registration from "./components/Registration";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import GetData from "./components/GetData";
+import Registration from "./components/Registration";
 
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<GetData />} />
-//         <Route path="/register" element={<Registration />} />/
-//         <Route path="/login" element={<Login />} />
-//       </Routes>
-//       <Registration />
-//     </Router>
-//   );
-// }
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<GetData />} />
+        <Route path="/register" element={<Registration />} />/
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Registration />
+    </Router>
+  );
+}
 
-// export default App;
+export default App;
 
 // import React from "react";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -41,24 +41,24 @@
 
 // export default App;
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import GetData from "./components/GetData";
-import Registration from "./components/Registration";
-import UpdateUser from "./components/UpdateUser";
+// import React from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Login from "./components/Login";
+// import GetData from "./components/GetData";
+// import Registration from "./components/Registration";
+// import UpdateUser from "./components/UpdateUser";
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<GetData />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/update" element={<UpdateUser />} />
-      </Routes>
-    </Router>
-  );
-}
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<GetData />} />
+//         <Route path="/register" element={<Registration />} />
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/update" element={<UpdateUser />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
 
-export default App;
+// export default App;
