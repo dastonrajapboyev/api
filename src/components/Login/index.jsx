@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  Button,
+  ErrorMessage,
+  Input,
+  LoginBox,
+  LoginContainer,
+  RegisterButton,
+  Title,
+} from "./style";
 
 const Login = () => {
   const [formData, setFormData] = useState({ login: "", password: "" });
@@ -31,30 +40,34 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="login"
-          value={formData.login}
-          onChange={handleChange}
-          placeholder="Login"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button onClick={() => navigate("/register")}>Go to Register</button>
-    </div>
+    <LoginContainer>
+      <LoginBox>
+        <Title>Login</Title>
+        <form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            name="login"
+            value={formData.login}
+            onChange={handleChange}
+            placeholder="Login"
+            required
+          />
+          <Input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            required
+          />
+          <Button type="submit">Login</Button>
+        </form>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        <RegisterButton onClick={() => navigate("/register")}>
+          Go to Register
+        </RegisterButton>
+      </LoginBox>
+    </LoginContainer>
   );
 };
 

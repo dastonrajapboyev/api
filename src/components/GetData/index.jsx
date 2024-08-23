@@ -420,8 +420,16 @@
 
 import React, { useEffect, useState } from "react";
 import instance from "../Servis/servis";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { Container, DataItem, Section, SectionTitle, Image } from "./style";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  DataItem,
+  Section,
+  SectionTitle,
+  Image,
+  Button,
+  LoadingText,
+} from "./style";
 
 function GetData() {
   const [doctorData, setDoctorData] = useState(null);
@@ -432,19 +440,11 @@ function GetData() {
   const [treatmentData, setTreatmentData] = useState([]);
   const [serviceData, setServiceData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const doctorPromise = instance.get("/doctor");
-        const positionPromise = instance.get("/position");
-        const departmentPromise = instance.get("/department");
-        const patsientPromise = instance.get("/patsient");
-        const roomPromise = instance.get("/room");
-        const treatmentPromise = instance.get("/treatment");
-        const servicePromise = instance.get("/service");
-
         const [
           doctorResponse,
           positionResponse,
@@ -454,13 +454,13 @@ function GetData() {
           treatmentResponse,
           serviceResponse,
         ] = await Promise.all([
-          doctorPromise,
-          positionPromise,
-          departmentPromise,
-          patsientPromise,
-          roomPromise,
-          treatmentPromise,
-          servicePromise,
+          instance.get("/doctor"),
+          instance.get("/position"),
+          instance.get("/department"),
+          instance.get("/patsient"),
+          instance.get("/room"),
+          instance.get("/treatment"),
+          instance.get("/service"),
         ]);
 
         console.log("Doctor Response Data:", doctorResponse.data);
@@ -471,27 +471,13 @@ function GetData() {
         console.log("Treatment Response Data:", treatmentResponse.data);
         console.log("Service Response Data:", serviceResponse.data);
 
-        if (doctorResponse.data.length > 0) {
-          setDoctorData(doctorResponse.data[0]);
-        }
-        if (positionResponse.data.length > 0) {
-          setPositionData(positionResponse.data);
-        }
-        if (departmentResponse.data.length > 0) {
-          setDepartmentData(departmentResponse.data);
-        }
-        if (patsientResponse.data.length > 0) {
-          setPatsientData(patsientResponse.data);
-        }
-        if (roomResponse.data.length > 0) {
-          setRoomData(roomResponse.data);
-        }
-        if (treatmentResponse.data.length > 0) {
-          setTreatmentData(treatmentResponse.data);
-        }
-        if (serviceResponse.data.length > 0) {
-          setServiceData(serviceResponse.data);
-        }
+        setDoctorData(doctorResponse.data[0]);
+        setPositionData(positionResponse.data);
+        setDepartmentData(departmentResponse.data);
+        setPatsientData(patsientResponse.data);
+        setRoomData(roomResponse.data);
+        setTreatmentData(treatmentResponse.data);
+        setServiceData(serviceResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -505,39 +491,59 @@ function GetData() {
   return (
     <Container>
       {loading ? (
-        <p>Loading...</p>
+        <LoadingText>Loading...</LoadingText>
       ) : (
         <>
           {doctorData && (
             <Section>
               <SectionTitle>Doctor Data</SectionTitle>
-              <DataItem>Birthday: {doctorData.birthday || "Noma'lum"}</DataItem>
-              <DataItem>Ism: {doctorData.name}</DataItem>
-              <DataItem>Telefon raqam: {doctorData.phone}</DataItem>
               <DataItem>
-                jinsi: {doctorData.gender === 1 ? "erkak" : "ayol"}
+                <strong>Birthday: </strong> {doctorData.birthday || "Noma'lum"}
               </DataItem>
               <DataItem>
-                Mutaxasisligi: {doctorData.spec?.title || "Noma'lum"}
+                {" "}
+                <strong> Name: </strong> {doctorData.name}
               </DataItem>
-              <DataItem>Malumoti: {doctorData.education}</DataItem>
               <DataItem>
-                manzil: {doctorData.region} / {doctorData.district}
+                <strong>Phone:</strong> {doctorData.phone}
               </DataItem>
-              <Image src={doctorData.avatar} alt="img" />
+              <DataItem>
+                <strong>Gender: </strong>
+                {doctorData.gender === 1 ? "Male" : "Female"}
+              </DataItem>
+              <DataItem>
+                <strong>Specialty: </strong>
+                {doctorData.spec?.title || "Unknown"}
+              </DataItem>
+
+              <DataItem>
+                <strong>Education: </strong>
+                {doctorData.education}
+              </DataItem>
+              <DataItem>
+                <strong>Address: </strong>
+                {doctorData.region} / {doctorData.district}
+              </DataItem>
+              <Image src={doctorData.avatar} alt="Doctor" />
               {positionData.map((position, index) => (
-                <DataItem key={index}>Lavozimi: {position.title}</DataItem>
+                <DataItem key={index}>
+                  <strong>Position: </strong>
+                  {position.title}
+                </DataItem>
               ))}
             </Section>
           )}
 
           {departmentData.length > 0 && (
             <Section>
-              <SectionTitle>Department Data</SectionTitle>
+              <SectionTitle>
+                <strong>Department Data</strong>
+              </SectionTitle>
               <ul>
                 {departmentData.map((department, index) => (
                   <DataItem key={index}>
-                    Department (Bo'lim): {department.title}
+                    <strong>Department: </strong>
+                    {department.title}
                   </DataItem>
                 ))}
               </ul>
@@ -546,26 +552,60 @@ function GetData() {
 
           {patsientData.length > 0 && (
             <Section>
-              <SectionTitle>Patsient Data</SectionTitle>
+              <SectionTitle>
+                <strong>Patient Data </strong>
+              </SectionTitle>
               <ul>
                 {patsientData.map((patsient, index) => (
                   <li key={index}>
-                    <DataItem>Name: {patsient.name}</DataItem>
-                    <DataItem>yashash hududi: {patsient.region}</DataItem>
-                    <Image src={patsient.avatar} alt="" />
-                    <DataItem>tuman: {patsient.district}</DataItem>
-                    <DataItem>kelgan kuni: {patsient.arriveDate}</DataItem>
-                    <DataItem>ish joyi: {patsient.workplace}</DataItem>
                     <DataItem>
-                      Davolovchi Doctor: {patsient.doctor?.name}
+                      <strong>Name: </strong>
+
+                      {patsient.name}
                     </DataItem>
-                    <DataItem>malumoti: {patsient.education}</DataItem>
-                    <DataItem>Birthday: {patsient.birthday}</DataItem>
                     <DataItem>
-                      Gender: {patsient.gender === 1 ? "erkak" : "ayol"}
+                      <strong>Region: </strong>
+                      {patsient.region}
                     </DataItem>
-                    <DataItem>Phone: {patsient.phone}</DataItem>
-                    <DataItem>reaksiyasi: {patsient.reactions}</DataItem>
+                    <Image src={patsient.avatar} alt="Patient" />
+                    <DataItem>
+                      <strong>District: </strong>
+
+                      {patsient.district}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Arrival Date: </strong>
+                      {patsient.arriveDate}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Workplace: </strong>
+                      {patsient.workplace}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Doctor: </strong>
+                      {patsient.doctor?.name}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Education: </strong>
+                      {patsient.education}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Birthday: </strong>
+
+                      {patsient.birthday}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Gender: </strong>
+                      {patsient.gender === 1 ? "Male" : "Female"}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Phone: </strong>
+                      {patsient.phone}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Reactions: </strong>
+                      {patsient.reactions}
+                    </DataItem>
                   </li>
                 ))}
               </ul>
@@ -574,12 +614,20 @@ function GetData() {
 
           {roomData.length > 0 && (
             <Section>
-              <SectionTitle>Room Data</SectionTitle>
+              <SectionTitle>
+                <strong>Room Data</strong>
+              </SectionTitle>
               <ul>
                 {roomData.map((room, index) => (
                   <div key={index}>
-                    <DataItem>xona: {room.number}</DataItem>
-                    <DataItem>xona sig'imi: {room.maxcount}</DataItem>
+                    <DataItem>
+                      <strong>Room Number: </strong>
+                      {room.number}
+                    </DataItem>
+                    <DataItem>
+                      <strong>Capacity: </strong>
+                      {room.maxcount}
+                    </DataItem>
                   </div>
                 ))}
               </ul>
@@ -588,11 +636,14 @@ function GetData() {
 
           {treatmentData.length > 0 && (
             <Section>
-              <SectionTitle>Treatment Data</SectionTitle>
+              <SectionTitle>
+                <strong>Treatment Data</strong>
+              </SectionTitle>
               <ul>
                 {treatmentData.map((treatment, index) => (
                   <DataItem key={index}>
-                    Treatment: {treatment.comment}
+                    <strong>Treatment: </strong>
+                    {treatment.comment}
                   </DataItem>
                 ))}
               </ul>
@@ -601,17 +652,22 @@ function GetData() {
 
           {serviceData.length > 0 && (
             <Section>
-              <SectionTitle>Service Data</SectionTitle>
+              <SectionTitle>
+                <strong>Service Data</strong>
+              </SectionTitle>
               <ul>
                 {serviceData.map((service, index) => (
-                  <DataItem key={index}>Service: {service.title}</DataItem>
+                  <DataItem key={index}>
+                    <strong>Service: </strong>
+                    {service.title}
+                  </DataItem>
                 ))}
               </ul>
             </Section>
           )}
         </>
       )}
-      <button onClick={() => navigate("/update")}>Update User</button>
+      <Button onClick={() => navigate("/update")}>Update User</Button>
     </Container>
   );
 }
